@@ -1,0 +1,769 @@
+<!DOCTYPE html>
+<html class="dark" lang="en">
+
+<head>
+    <meta charset="utf-8" />
+    <meta content="width=device-width, initial-scale=1.0" name="viewport" />
+    <meta name="description" content="Sourav Debnath — Software Engineer, AI/ML Enthusiast and Full-Stack Developer. GATE qualified CSE graduate building scalable web apps and ML-powered solutions." />
+    <title>Sourav Debnath — Software Engineer & AI/ML Developer</title>
+    <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+    <link
+        href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500&family=Inter:wght@400;500&family=Geist:wght@700;800&display=swap"
+        rel="stylesheet" />
+    <script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "primary-fixed-dim": "#c6c6c7",
+                        "primary-fixed": "#e2e2e2",
+                        "surface-bright": "#3a3939",
+                        "on-background": "#e5e2e1",
+                        "surface-dim": "#141313",
+                        "primary": "#ffffff",
+                        "outline-variant": "#444748",
+                        "outline": "#8e9192",
+                        "on-surface": "#e5e2e1",
+                        "surface-container": "#201f1f",
+                        "on-surface-variant": "#c4c7c8",
+                        "surface": "#141313",
+                        "background": "#141313",
+                        "surface-container-lowest": "#0e0e0e",
+                        "surface-container-high": "#2a2a2a"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.25rem",
+                        "lg": "0.5rem",
+                        "xl": "0.75rem",
+                        "full": "9999px"
+                    },
+                    "spacing": {
+                        "stack-sm": "8px",
+                        "section-gap-desktop": "128px",
+                        "stack-md": "16px",
+                        "unit": "4px",
+                        "section-gap-mobile": "64px",
+                        "gutter": "24px",
+                        "container-max": "1200px",
+                        "stack-lg": "32px"
+                    },
+                    "fontFamily": {
+                        "display-lg": ["Geist"],
+                        "headline-md": ["Geist"],
+                        "body-base": ["Inter"],
+                        "label-mono": ["JetBrains Mono"]
+                    },
+                    "fontSize": {
+                        "display-lg": ["64px", { "lineHeight": "1.1", "letterSpacing": "-0.04em", "fontWeight": "700" }],
+                        "headline-md": ["32px", { "lineHeight": "1.3", "letterSpacing": "-0.02em", "fontWeight": "600" }],
+                        "body-base": ["16px", { "lineHeight": "1.6", "letterSpacing": "0", "fontWeight": "400" }],
+                        "label-mono": ["13px", { "lineHeight": "1.2", "letterSpacing": "0.05em", "fontWeight": "500" }]
+                    }
+                }
+            }
+        }
+    </script>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}" />
+</head>
+
+<body class="bg-background text-on-background font-body-base selection:bg-primary selection:text-surface">
+    <!-- Boot Loader -->
+    <div class="fixed inset-0 bg-surface-container-lowest boot-loader flex items-center justify-center p-gutter"
+        id="boot-loader">
+        <div class="w-full max-w-2xl font-label-mono text-primary text-label-mono">
+            <div class="space-y-1" id="terminal-content">
+                <p>> INITIALIZING sourav.dev...</p>
+                <p>> LOADING PROJECTS & SKILLS...</p>
+                <p>> ESTABLISHING SECURE CONNECTION...</p>
+                <p class="typing-container cursor-container" id="boot-status">> STATUS: READY</p>
+            </div>
+            <div class="mt-stack-lg h-1 w-full bg-surface-container overflow-hidden">
+                <div class="h-full bg-primary w-0 transition-all duration-[2000ms] ease-out" id="boot-progress"></div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Navigation -->
+    <header
+        class="fixed top-0 w-full z-50 bg-surface/80 backdrop-blur-xl border-b border-outline-variant/30 opacity-0 transition-opacity duration-1000"
+        id="main-header">
+        <nav class="flex justify-between items-center px-gutter py-4 max-w-container-max mx-auto">
+            <a href="#hero" class="font-display-lg text-body-base font-bold tracking-tighter text-on-surface">
+                sourav.dev
+            </a>
+            <div class="hidden md:flex items-center gap-stack-lg font-label-mono text-label-mono">
+                <a class="nav-link" href="#hero">About</a>
+                <a class="nav-link" href="#projects">Projects</a>
+                <a class="nav-link" href="#skills">Skills</a>
+                <a class="nav-link" href="#experience">Experience</a>
+                <a class="nav-link" href="#education">Education</a>
+                <a class="nav-link" href="#achievements">Achievements</a>
+                <a class="nav-link" href="#certifications">Certifications</a>
+                <a class="nav-link" href="#contact">Connect</a>
+            </div>
+            <!-- Mobile Toggle -->
+            <button id="menu-toggle" class="md:hidden text-primary" aria-label="Open menu">
+                <svg class="icon" viewBox="0 0 24 24"><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="18" x2="21" y2="18"/></svg>
+            </button>
+        </nav>
+    </header>
+
+    <!-- Mobile Menu -->
+    <div id="mobile-menu-backdrop" class="fixed inset-0 bg-black/60 z-[60] md:hidden"></div>
+    <aside id="mobile-menu"
+        class="fixed top-0 right-0 h-full w-72 max-w-[80vw] bg-surface-container-lowest border-l border-outline-variant/30 z-[70] md:hidden flex flex-col p-gutter">
+        <div class="flex justify-between items-center mb-stack-lg">
+            <span class="font-display-lg text-body-base font-bold text-on-surface">Menu</span>
+            <button id="mobile-menu-close" class="text-primary" aria-label="Close menu">
+                <svg class="icon" viewBox="0 0 24 24"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+            </button>
+        </div>
+        <nav class="flex flex-col gap-stack-lg font-label-mono text-label-mono">
+            <a class="text-on-surface-variant hover:text-primary transition-colors" href="#hero">About</a>
+            <a class="text-on-surface-variant hover:text-primary transition-colors" href="#projects">Projects</a>
+            <a class="text-on-surface-variant hover:text-primary transition-colors" href="#skills">Skills</a>
+            <a class="text-on-surface-variant hover:text-primary transition-colors" href="#experience">Experience</a>
+            <a class="text-on-surface-variant hover:text-primary transition-colors" href="#education">Education</a>
+            <a class="text-on-surface-variant hover:text-primary transition-colors" href="#achievements">Achievements</a>
+            <a class="text-on-surface-variant hover:text-primary transition-colors" href="#certifications">Certifications</a>
+            <a class="text-on-surface-variant hover:text-primary transition-colors" href="#leadership">Leadership</a>
+            <a class="text-on-surface-variant hover:text-primary transition-colors" href="#contact">Connect</a>
+        </nav>
+    </aside>
+
+    <main class="opacity-0 transition-opacity duration-1000" id="main-content">
+        <!-- Hero Section -->
+        <section
+            class="pt-32 pb-section-gap-mobile md:pb-section-gap-desktop px-gutter max-w-container-max mx-auto min-h-screen flex flex-col justify-center"
+            id="hero">
+            <div class="grid md:grid-cols-2 gap-stack-lg items-center">
+                <div class="fade-element">
+                    <p class="font-label-mono text-primary mb-stack-sm">HELLO, I AM</p>
+                    <h1 class="font-display-lg text-display-lg text-primary mb-stack-md">Sourav Debnath</h1>
+                    <div
+                        class="text-headline-md font-headline-md text-outline mb-stack-lg min-h-[1.5em] flex items-center">
+                        <span class="cursor-container" id="typing-text"></span>
+                    </div>
+                    <p class="text-body-base text-on-surface-variant max-w-lg mb-stack-lg">
+                        Computer Science & Engineering graduate and GATE-qualified engineer with hands-on
+                        experience in Full-Stack Development, Machine Learning, Deep Learning and Android app
+                        development. I design scalable software solutions and integrate ML models into web
+                        applications, with a strong foundation in Data Structures & Algorithms and core CS
+                        fundamentals.
+                    </p>
+                    <div class="flex flex-wrap gap-stack-md items-center">
+                        <a href="{{ url_for('static', filename='docs/resume.pdf') }}" download="Sourav_Debnath_Resume.pdf"
+                            class="border border-outline-variant/30 text-primary px-stack-lg py-stack-md rounded font-label-mono hover:bg-surface-bright/10 transition-all">DOWNLOAD_RESUME</a>
+                        <a href="https://github.com/souravdebnath0007" target="_blank" rel="noopener"
+                            class="text-outline hover:text-primary transition-colors" aria-label="GitHub">
+                            <svg class="icon icon-md" viewBox="0 0 24 24"><path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"/></svg>
+                        </a>
+                    </div>
+                </div>
+                <div id="laptop-scene" class="relative flex justify-center items-center fade-element">
+                    <!-- Laptop Image -->
+                    <img src="{{ url_for('static', filename='images/laptop.png') }}" alt="Laptop"
+                        class="relative w-full max-w-[700px] select-none pointer-events-none z-20">
+                    <!-- Laptop Screen: looping terminal animation (populated by JS) -->
+                    <div id="laptop-screen" class="absolute overflow-hidden rounded-[8px] z-10 laptop-screen" style="
+                        width:72%;
+                        height:60%;
+                        top:9%;
+                        left:14%;
+                    "></div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Projects -->
+        <section class="py-section-gap-mobile md:py-section-gap-desktop px-gutter max-w-container-max mx-auto"
+            id="projects">
+            <div class="mb-stack-lg fade-element">
+                <h2 class="font-headline-md text-headline-md text-primary">Academic Projects</h2>
+                <div class="h-1 w-20 bg-primary mt-unit"></div>
+            </div>
+            <div class="grid md:grid-cols-12 gap-stack-lg" data-stagger-group>
+                <!-- Mentora -->
+                <article class="md:col-span-8 glass-card rounded-xl overflow-hidden fade-element stagger-card group">
+                    <div class="aspect-video project-thumb">
+                        <span class="thumb-label">Mentora</span>
+                    </div>
+                    <div class="p-stack-lg">
+                        <span class="font-label-mono text-outline text-label-mono">AI / FULL-STACK · TIT</span>
+                        <h3 class="font-headline-md text-headline-md text-primary mt-unit">Mentora — AI Student Success Platform</h3>
+                        <p class="text-body-base text-on-surface-variant mt-stack-md">
+                            An AI-powered career-readiness platform with modules for CGPA prediction, stress analysis
+                            and course recommendation. Integrated Machine Learning models into Flask REST APIs and
+                            built an analytics dashboard for student performance insights.
+                        </p>
+                        <div class="flex flex-wrap gap-stack-sm mt-stack-lg">
+                            <span class="tech-badge">Python</span>
+                            <span class="tech-badge">Flask</span>
+                            <span class="tech-badge">ML</span>
+                            <span class="tech-badge">SQLite</span>
+                        </div>
+                        <div class="mt-stack-lg flex gap-stack-md">
+                            <a href="https://github.com/souravdebnath0007" target="_blank" rel="noopener"
+                                class="flex items-center gap-2 text-primary hover:text-primary-fixed-dim transition-colors">
+                                <svg class="icon icon-sm" viewBox="0 0 24 24"><path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"/></svg>
+                                <span class="font-label-mono text-label-mono">GitHub</span>
+                            </a>
+                            <a href="#" target="_blank" rel="noopener"
+                                class="flex items-center gap-2 text-primary hover:text-primary-fixed-dim transition-colors">
+                                <svg class="icon icon-sm" viewBox="0 0 24 24"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
+                                <span class="font-label-mono text-label-mono">Visit</span>
+                            </a>
+                        </div>
+                    </div>
+                </article>
+
+                <!-- Student Management System -->
+                <article class="md:col-span-4 glass-card rounded-xl overflow-hidden fade-element stagger-card group">
+                    <div class="aspect-[4/5] project-thumb">
+                        <span class="thumb-label">SMS</span>
+                    </div>
+                    <div class="p-stack-md">
+                        <span class="font-label-mono text-outline text-label-mono">MERN · DIT</span>
+                        <h3 class="font-headline-md text-body-base font-bold text-primary mt-unit">Student Management System</h3>
+                        <p class="text-body-base text-on-surface-variant mt-stack-sm text-sm">
+                            Full-stack MERN app with backend APIs, MongoDB management, authentication and CRUD
+                            operations.
+                        </p>
+                        <div class="flex flex-wrap gap-stack-sm mt-stack-md">
+                            <span class="tech-badge">MongoDB</span>
+                            <span class="tech-badge">Express</span>
+                            <span class="tech-badge">React</span>
+                            <span class="tech-badge">Node</span>
+                        </div>
+                        <div class="mt-stack-md flex gap-stack-md">
+                            <a href="https://github.com/souravdebnath0007" target="_blank" rel="noopener"
+                                class="flex items-center gap-2 text-primary hover:text-primary-fixed-dim transition-colors">
+                                <svg class="icon icon-sm" viewBox="0 0 24 24"><path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"/></svg>
+                                <span class="font-label-mono text-label-mono">GitHub</span>
+                            </a>
+                            <a href="#" target="_blank" rel="noopener"
+                                class="flex items-center gap-2 text-primary hover:text-primary-fixed-dim transition-colors">
+                                <svg class="icon icon-sm" viewBox="0 0 24 24"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
+                                <span class="font-label-mono text-label-mono">Visit</span>
+                            </a>
+                        </div>
+                    </div>
+                </article>
+
+                <!-- Vehicle Parking Application -->
+                <article class="md:col-span-6 glass-card rounded-xl overflow-hidden fade-element stagger-card group flex flex-col md:flex-row">
+                    <div class="md:w-1/2 aspect-video project-thumb">
+                        <span class="thumb-label">ParkFlow</span>
+                    </div>
+                    <div class="p-stack-lg md:w-1/2 flex flex-col justify-center">
+                        <span class="font-label-mono text-outline text-label-mono">FLASK + ASYNC · IIT MADRAS</span>
+                        <h3 class="font-headline-md text-headline-md text-primary mt-unit">Vehicle Parking Application</h3>
+                        <p class="text-body-base text-on-surface-variant mt-stack-md">
+                            A smart parking management system with asynchronous task processing using Redis and Celery
+                            for handling bookings efficiently.
+                        </p>
+                        <div class="flex flex-wrap gap-stack-sm mt-stack-lg">
+                            <span class="tech-badge">Flask</span>
+                            <span class="tech-badge">Vue.js</span>
+                            <span class="tech-badge">Redis</span>
+                            <span class="tech-badge">Celery</span>
+                            <span class="tech-badge">SQLite</span>
+                        </div>
+                        <div class="mt-stack-lg flex gap-stack-md">
+                            <a href="https://github.com/souravdebnath0007" target="_blank" rel="noopener"
+                                class="flex items-center gap-2 text-primary hover:text-primary-fixed-dim transition-colors">
+                                <svg class="icon icon-sm" viewBox="0 0 24 24"><path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"/></svg>
+                                <span class="font-label-mono text-label-mono">GitHub</span>
+                            </a>
+                            <a href="#" target="_blank" rel="noopener"
+                                class="flex items-center gap-2 text-primary hover:text-primary-fixed-dim transition-colors">
+                                <svg class="icon icon-sm" viewBox="0 0 24 24"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
+                                <span class="font-label-mono text-label-mono">Visit</span>
+                            </a>
+                        </div>
+                    </div>
+                </article>
+
+                <!-- Gleam -->
+                <article class="md:col-span-6 glass-card rounded-xl overflow-hidden fade-element stagger-card group flex flex-col md:flex-row">
+                    <div class="md:w-1/2 aspect-video project-thumb">
+                        <span class="thumb-label">Gleam</span>
+                    </div>
+                    <div class="p-stack-lg md:w-1/2 flex flex-col justify-center">
+                        <span class="font-label-mono text-outline text-label-mono">ANDROID · NIELIT</span>
+                        <h3 class="font-headline-md text-headline-md text-primary mt-unit">Gleam — E-commerce App</h3>
+                        <p class="text-body-base text-on-surface-variant mt-stack-md">
+                            An e-commerce Android application with backend functionalities, Firebase integration, user
+                            authentication and local database support.
+                        </p>
+                        <div class="flex flex-wrap gap-stack-sm mt-stack-lg">
+                            <span class="tech-badge">Java</span>
+                            <span class="tech-badge">XML</span>
+                            <span class="tech-badge">Firebase</span>
+                            <span class="tech-badge">SQLite</span>
+                        </div>
+                        <div class="mt-stack-lg flex gap-stack-md">
+                            <a href="https://github.com/souravdebnath0007" target="_blank" rel="noopener"
+                                class="flex items-center gap-2 text-primary hover:text-primary-fixed-dim transition-colors">
+                                <svg class="icon icon-sm" viewBox="0 0 24 24"><path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"/></svg>
+                                <span class="font-label-mono text-label-mono">GitHub</span>
+                            </a>
+                            <a href="#" target="_blank" rel="noopener"
+                                class="flex items-center gap-2 text-primary hover:text-primary-fixed-dim transition-colors">
+                                <svg class="icon icon-sm" viewBox="0 0 24 24"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
+                                <span class="font-label-mono text-label-mono">Visit</span>
+                            </a>
+                        </div>
+                    </div>
+                </article>
+
+                <!-- Household Service Provider -->
+                <article class="md:col-span-12 glass-card rounded-xl overflow-hidden fade-element stagger-card group flex flex-col md:flex-row">
+                    <div class="md:w-2/5 aspect-video project-thumb">
+                        <span class="thumb-label">ServeEase</span>
+                    </div>
+                    <div class="p-stack-lg md:w-3/5 flex flex-col justify-center">
+                        <span class="font-label-mono text-outline text-label-mono">FLASK · IIT MADRAS</span>
+                        <h3 class="font-headline-md text-headline-md text-primary mt-unit">Household Service Provider</h3>
+                        <p class="text-body-base text-on-surface-variant mt-stack-md">
+                            A service booking platform with role-based access control, authentication and database
+                            operations for connecting households with local service providers.
+                        </p>
+                        <div class="flex flex-wrap gap-stack-sm mt-stack-lg">
+                            <span class="tech-badge">Flask</span>
+                            <span class="tech-badge">HTML</span>
+                            <span class="tech-badge">CSS</span>
+                            <span class="tech-badge">Bootstrap</span>
+                        </div>
+                        <div class="mt-stack-lg flex gap-stack-md">
+                            <a href="https://github.com/souravdebnath0007" target="_blank" rel="noopener"
+                                class="flex items-center gap-2 text-primary hover:text-primary-fixed-dim transition-colors">
+                                <svg class="icon icon-sm" viewBox="0 0 24 24"><path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"/></svg>
+                                <span class="font-label-mono text-label-mono">GitHub</span>
+                            </a>
+                            <a href="#" target="_blank" rel="noopener"
+                                class="flex items-center gap-2 text-primary hover:text-primary-fixed-dim transition-colors">
+                                <svg class="icon icon-sm" viewBox="0 0 24 24"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
+                                <span class="font-label-mono text-label-mono">Visit</span>
+                            </a>
+                        </div>
+                    </div>
+                </article>
+            </div>
+        </section>
+
+        <!-- Skills -->
+        <section class="py-section-gap-mobile md:py-section-gap-desktop bg-surface-container-lowest" id="skills">
+            <div class="px-gutter max-w-container-max mx-auto">
+                <div class="mb-stack-lg fade-element">
+                    <h2 class="font-headline-md text-headline-md text-primary">Technical Skills</h2>
+                    <div class="h-1 w-20 bg-primary mt-unit"></div>
+                </div>
+                <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-stack-lg" data-stagger-group>
+                    <!-- Programming Languages -->
+                    <div class="skill-card glass-card rounded-xl p-stack-lg fade-element stagger-card">
+                        <div class="flex items-center gap-stack-md mb-stack-md">
+                            <svg class="icon icon-md text-primary skill-icon" viewBox="0 0 24 24"><polyline points="4 17 10 11 4 5"/><line x1="12" y1="19" x2="20" y2="19"/></svg>
+                            <h3 class="font-headline-md text-body-base font-bold text-primary">Programming Languages</h3>
+                        </div>
+                        <div class="flex flex-wrap gap-2">
+                            <span class="tech-badge">Python</span>
+                            <span class="tech-badge">Java</span>
+                            <span class="tech-badge">C</span>
+                            <span class="tech-badge">JavaScript</span>
+                            <span class="tech-badge">SQL</span>
+                            <span class="tech-badge">HTML</span>
+                            <span class="tech-badge">CSS</span>
+                            <span class="tech-badge">XML</span>
+                        </div>
+                    </div>
+                    <!-- Frameworks -->
+                    <div class="skill-card glass-card rounded-xl p-stack-lg fade-element stagger-card">
+                        <div class="flex items-center gap-stack-md mb-stack-md">
+                            <svg class="icon icon-md text-primary skill-icon" viewBox="0 0 24 24"><polygon points="12 2 2 7 12 12 22 7 12 2"/><polyline points="2 17 12 22 22 17"/><polyline points="2 12 12 17 22 12"/></svg>
+                            <h3 class="font-headline-md text-body-base font-bold text-primary">Frameworks</h3>
+                        </div>
+                        <div class="flex flex-wrap gap-2">
+                            <span class="tech-badge">Flask</span>
+                            <span class="tech-badge">FastAPI</span>
+                            <span class="tech-badge">MERN Stack</span>
+                            <span class="tech-badge">Vue.js</span>
+                            <span class="tech-badge">Tailwind CSS</span>
+                        </div>
+                    </div>
+                    <!-- AI / ML -->
+                    <div class="skill-card glass-card rounded-xl p-stack-lg fade-element stagger-card">
+                        <div class="flex items-center gap-stack-md mb-stack-md">
+                            <svg class="icon icon-md text-primary skill-icon" viewBox="0 0 24 24"><circle cx="12" cy="12" r="3"/><path d="M12 1v6m0 6v6m11-7h-6m-6 0H1m17.07-7.07l-4.24 4.24m-3.66 3.66l-4.24 4.24m0-12.14l4.24 4.24m3.66 3.66l4.24 4.24"/></svg>
+                            <h3 class="font-headline-md text-body-base font-bold text-primary">AI / ML</h3>
+                        </div>
+                        <div class="flex flex-wrap gap-2">
+                            <span class="tech-badge">Scikit-learn</span>
+                            <span class="tech-badge">TensorFlow</span>
+                            <span class="tech-badge">Pandas</span>
+                            <span class="tech-badge">NumPy</span>
+                            <span class="tech-badge">Matplotlib</span>
+                            <span class="tech-badge">Deep Learning</span>
+                            <span class="tech-badge">Generative AI</span>
+                        </div>
+                    </div>
+                    <!-- Databases -->
+                    <div class="skill-card glass-card rounded-xl p-stack-lg fade-element stagger-card">
+                        <div class="flex items-center gap-stack-md mb-stack-md">
+                            <svg class="icon icon-md text-primary skill-icon" viewBox="0 0 24 24"><ellipse cx="12" cy="5" rx="9" ry="3"/><path d="M21 12c0 1.66-4 3-9 3s-9-1.34-9-3"/><path d="M3 5v14c0 1.66 4 3 9 3s9-1.34 9-3V5"/></svg>
+                            <h3 class="font-headline-md text-body-base font-bold text-primary">Databases</h3>
+                        </div>
+                        <div class="flex flex-wrap gap-2">
+                            <span class="tech-badge">MongoDB</span>
+                            <span class="tech-badge">SQLite</span>
+                            <span class="tech-badge">Firebase</span>
+                            <span class="tech-badge">SQLAlchemy</span>
+                        </div>
+                    </div>
+                    <!-- Developer Tools -->
+                    <div class="skill-card glass-card rounded-xl p-stack-lg fade-element stagger-card">
+                        <div class="flex items-center gap-stack-md mb-stack-md">
+                            <svg class="icon icon-md text-primary skill-icon" viewBox="0 0 24 24"><path d="M14.7 6.3a1 1 0 0 0 0 1.4l1.6 1.6a1 1 0 0 0 1.4 0l3.77-3.77a6 6 0 0 1-7.94 7.94l-6.91 6.91a2.12 2.12 0 0 1-3-3l6.91-6.91a6 6 0 0 1 7.94-7.94l-3.76 3.76z"/></svg>
+                            <h3 class="font-headline-md text-body-base font-bold text-primary">Developer Tools</h3>
+                        </div>
+                        <div class="flex flex-wrap gap-2">
+                            <span class="tech-badge">Git</span>
+                            <span class="tech-badge">GitHub</span>
+                            <span class="tech-badge">Linux</span>
+                            <span class="tech-badge">Postman</span>
+                            <span class="tech-badge">Redis</span>
+                            <span class="tech-badge">Celery</span>
+                            <span class="tech-badge">VS Code</span>
+                            <span class="tech-badge">Figma</span>
+                        </div>
+                    </div>
+                    <!-- Core CS -->
+                    <div class="skill-card glass-card rounded-xl p-stack-lg fade-element stagger-card">
+                        <div class="flex items-center gap-stack-md mb-stack-md">
+                            <svg class="icon icon-md text-primary skill-icon" viewBox="0 0 24 24"><path d="M22 10v6M2 10l10-5 10 5-10 5z"/><path d="M6 12v5c3 3 9 3 12 0v-5"/></svg>
+                            <h3 class="font-headline-md text-body-base font-bold text-primary">Core CS</h3>
+                        </div>
+                        <div class="flex flex-wrap gap-2">
+                            <span class="tech-badge">DSA</span>
+                            <span class="tech-badge">DBMS</span>
+                            <span class="tech-badge">OOP</span>
+                            <span class="tech-badge">OS</span>
+                            <span class="tech-badge">CN</span>
+                            <span class="tech-badge">Software Engineering</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Experience & Education -->
+        <section class="py-section-gap-mobile md:py-section-gap-desktop px-gutter max-w-container-max mx-auto">
+            <div class="grid md:grid-cols-2 gap-section-gap-mobile md:gap-stack-lg">
+                <!-- Education -->
+                <div id="education">
+                    <div class="mb-stack-lg fade-element">
+                        <h2 class="font-headline-md text-headline-md text-primary">Education</h2>
+                        <div class="h-1 w-20 bg-primary mt-unit"></div>
+                    </div>
+                    <div class="space-y-stack-lg relative border-l border-outline-variant/30 ml-unit pl-stack-lg" data-stagger-group>
+                        <div class="fade-element stagger-card relative">
+                            <div class="absolute -left-[37px] top-1 w-3 h-3 bg-primary rounded-full border-4 border-background"></div>
+                            <p class="font-label-mono text-primary text-label-mono">Ongoing</p>
+                            <h3 class="font-headline-md text-body-base font-bold text-on-surface">M.Tech in Artificial Inteligence</h3>
+                            <p class="text-on-surface-variant">National Institute of Technology, Silchar</p>
+                            <p class="text-sm text-outline mt-stack-sm italic"></p>
+                        </div>
+                        <div class="fade-element stagger-card relative">
+                            <div class="absolute -left-[37px] top-1 w-3 h-3 bg-primary rounded-full border-4 border-background"></div>
+                            <p class="font-label-mono text-primary text-label-mono">2026</p>
+                            <h3 class="font-headline-md text-body-base font-bold text-on-surface">B.Tech in Computer Science & Engineering</h3>
+                            <p class="text-on-surface-variant">Tripura Institute of Technology</p>
+                            <p class="text-sm text-outline mt-stack-sm italic">CGPA: 8.26 · Tripura University</p>
+                        </div>
+                        <div class="fade-element stagger-card relative">
+                            <div class="absolute -left-[37px] top-1 w-3 h-3 bg-primary rounded-full border-4 border-background"></div>
+                            <p class="font-label-mono text-primary text-label-mono">Ongoing</p>
+                            <h3 class="font-headline-md text-body-base font-bold text-on-surface">Diploma in Data Science</h3>
+                            <p class="text-on-surface-variant">IIT Madras (BS Degree)</p>
+                            <p class="text-sm text-outline mt-stack-sm italic">CGPA: 7.50</p>
+                        </div>
+                        <div class="fade-element stagger-card relative">
+                            <div class="absolute -left-[37px] top-1 w-3 h-3 bg-primary rounded-full border-4 border-background"></div>
+                            <p class="font-label-mono text-primary text-label-mono">2025</p>
+                            <h3 class="font-headline-md text-body-base font-bold text-on-surface">Diploma in Programming</h3>
+                            <p class="text-on-surface-variant">IIT Madras (BS Degree)</p>
+                            <p class="text-sm text-outline mt-stack-sm italic">CGPA: 7.90</p>
+                        </div>
+                        <div class="fade-element stagger-card relative">
+                            <div class="absolute -left-[37px] top-1 w-3 h-3 bg-primary rounded-full border-4 border-background"></div>
+                            <p class="font-label-mono text-primary text-label-mono">2023</p>
+                            <h3 class="font-headline-md text-body-base font-bold text-on-surface">Foundation Level</h3>
+                            <p class="text-on-surface-variant">IIT Madras (BS Degree)</p>
+                            <p class="text-sm text-outline mt-stack-sm italic">CGPA: 8.02</p>
+                        </div>
+                        <div class="fade-element stagger-card relative">
+                            <div class="absolute -left-[37px] top-1 w-3 h-3 bg-primary rounded-full border-4 border-background"></div>
+                            <p class="font-label-mono text-primary text-label-mono">2022</p>
+                            <h3 class="font-headline-md text-body-base font-bold text-on-surface">Higher Secondary (CBSE)</h3>
+                            <p class="text-on-surface-variant">Pranavananda Vidyamandir, Agartala</p>
+                            <p class="text-sm text-outline mt-stack-sm italic">Percentage: 85.6%</p>
+                        </div>
+                        <div class="fade-element stagger-card relative">
+                            <div class="absolute -left-[37px] top-1 w-3 h-3 bg-primary rounded-full border-4 border-background"></div>
+                            <p class="font-label-mono text-primary text-label-mono">2020</p>
+                            <h3 class="font-headline-md text-body-base font-bold text-on-surface">Secondary (CBSE)</h3>
+                            <p class="text-on-surface-variant">Pranavananda Vidyamandir, Agartala</p>
+                            <p class="text-sm text-outline mt-stack-sm italic">Percentage: 91.2%</p>
+                        </div>
+                    </div>
+                </div>
+                <!-- Experience -->
+                <div id="experience">
+                    <div class="mb-stack-lg fade-element">
+                        <h2 class="font-headline-md text-headline-md text-primary">Experience</h2>
+                        <div class="h-1 w-20 bg-primary mt-unit"></div>
+                    </div>
+                    <div class="space-y-stack-lg relative border-l border-outline-variant/30 ml-unit pl-stack-lg" data-stagger-group>
+                        <div class="fade-element stagger-card relative">
+                            <div class="absolute -left-[37px] top-1 w-3 h-3 bg-primary rounded-full border-4 border-background"></div>
+                            <p class="font-label-mono text-primary text-label-mono">Jun 2025 — Aug 2025</p>
+                            <h3 class="font-headline-md text-body-base font-bold text-on-surface">MERN Stack Intern</h3>
+                            <p class="text-on-surface-variant">Directorate of Information Technology (DIT), Agartala</p>
+                            <p class="text-sm text-outline mt-stack-sm">Developed full-stack web applications using the MERN Stack. Built RESTful APIs and managed MongoDB databases.</p>
+                        </div>
+                        <div class="fade-element stagger-card relative">
+                            <div class="absolute -left-[37px] top-1 w-3 h-3 bg-primary rounded-full border-4 border-background"></div>
+                            <p class="font-label-mono text-primary text-label-mono">Jul 2024 — Aug 2024</p>
+                            <h3 class="font-headline-md text-body-base font-bold text-on-surface">Android Development Intern</h3>
+                            <p class="text-on-surface-variant">NIELIT, Agartala</p>
+                            <p class="text-sm text-outline mt-stack-sm">Developed Android applications using Java and XML. Integrated Firebase services for authentication and data management.</p>
+                        </div>
+                        <div class="fade-element stagger-card relative">
+                            <div class="absolute -left-[37px] top-1 w-3 h-3 bg-primary rounded-full border-4 border-background"></div>
+                            <p class="font-label-mono text-primary text-label-mono">Jun 2024 — Jun 2024</p>
+                            <h3 class="font-headline-md text-body-base font-bold text-on-surface">Android Development Intern</h3>
+                            <p class="text-on-surface-variant">IIT Kharagpur</p>
+                            <p class="text-sm text-outline mt-stack-sm">Worked on IoT,Generative AI and Cloud Computing project.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Achievements -->
+        <section class="py-section-gap-mobile md:py-section-gap-desktop bg-surface-container-low" id="achievements">
+            <div class="px-gutter max-w-container-max mx-auto">
+                <div class="mb-stack-lg fade-element">
+                    <h2 class="font-headline-md text-headline-md text-primary">Achievements</h2>
+                    <div class="h-1 w-20 bg-primary mt-unit"></div>
+                </div>
+                <div class="grid md:grid-cols-3 gap-stack-lg" data-stagger-group>
+                    <div class="p-stack-lg glass-card fade-element stagger-card">
+                        <svg class="icon icon-lg text-primary mb-stack-md" viewBox="0 0 24 24"><circle cx="12" cy="8" r="6"/><path d="M8.21 13.89L7 22l5-3 5 3l-1.21-8.12"/></svg>
+                        <h4 class="font-headline-md text-body-base font-bold text-primary">GATE 2026 Qualified</h4>
+                        <p class="text-on-surface-variant text-sm mt-stack-sm">Score 529 · AIR 5,820 · Conducted by IIT Guwahati.</p>
+                    </div>
+                    <div class="p-stack-lg glass-card fade-element stagger-card">
+                        <svg class="icon icon-lg text-primary mb-stack-md" viewBox="0 0 24 24"><circle cx="12" cy="9" r="6"/><path d="M12 15l-3 7l3-2l3 2l-3-7z"/><path d="M8.5 9a3.5 3.5 0 1 1 7 0"/></svg>
+                        <h4 class="font-headline-md text-body-base font-bold text-primary">GATE 2025 Qualified</h4>
+                        <p class="text-on-surface-variant text-sm mt-stack-sm">Score 427 · AIR 11,986 · Conducted by IIT Roorkee.</p>
+                    </div>
+                    <div class="p-stack-lg glass-card fade-element stagger-card">
+                        <svg class="icon icon-lg text-primary mb-stack-md" viewBox="0 0 24 24"><path d="M6 9H4.5a2.5 2.5 0 0 1 0-5H6"/><path d="M18 9h1.5a2.5 2.5 0 0 0 0-5H18"/><path d="M4 22h16"/><path d="M10 14.66V17c0 .55-.47.98-.97 1.21C7.85 18.75 7 20.24 7 22"/><path d="M14 14.66V17c0 .55.47.98.97 1.21C16.15 18.75 17 20.24 17 22"/><path d="M18 2H6v7a6 6 0 0 0 12 0V2Z"/></svg>
+                        <h4 class="font-headline-md text-body-base font-bold text-primary">3rd Rank — Tripura University</h4>
+                        <p class="text-on-surface-variant text-sm mt-stack-sm">Secured 3rd rank in B.Tech CSE under Tripura University (2026).</p>
+                    </div>
+                    <div class="p-stack-lg glass-card fade-element stagger-card">
+                        <svg class="icon icon-lg text-primary mb-stack-md" viewBox="0 0 24 24"><path d="M3 3v18h18"/><path d="M7 14l4-4 4 4 5-5"/></svg>
+                        <h4 class="font-headline-md text-body-base font-bold text-primary">2nd Rank — TIT</h4>
+                        <p class="text-on-surface-variant text-sm mt-stack-sm">Secured 2nd rank in B.Tech CSE at Tripura Institute of Technology (2026).</p>
+                    </div>
+                    <div class="p-stack-lg glass-card fade-element stagger-card">
+                        <svg class="icon icon-lg text-primary mb-stack-md" viewBox="0 0 24 24"><polyline points="16 18 22 12 16 6"/><polyline points="8 6 2 12 8 18"/></svg>
+                        <h4 class="font-headline-md text-body-base font-bold text-primary">Code Quest 3.0 Winner</h4>
+                        <p class="text-on-surface-variant text-sm mt-stack-sm">First Position at Code Quest 3.0, UTKARSH 2025.</p>
+                    </div>
+                    <div class="p-stack-lg glass-card fade-element stagger-card">
+                        <svg class="icon icon-lg text-primary mb-stack-md" viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+                        <h4 class="font-headline-md text-body-base font-bold text-primary">Branch Topper & Top Performer</h4>
+                        <p class="text-on-surface-variant text-sm mt-stack-sm">Branch Topper in First Year B.Tech (2023). Top performer in 6+ IIT Madras BS courses.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Certifications -->
+        <section class="py-section-gap-mobile md:py-section-gap-desktop px-gutter max-w-container-max mx-auto" id="certifications">
+            <div class="mb-stack-lg fade-element">
+                <h2 class="font-headline-md text-headline-md text-primary">Certifications</h2>
+                <div class="h-1 w-20 bg-primary mt-unit"></div>
+            </div>
+            <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-stack-lg" data-stagger-group>
+                <a href="https://bswd.iitm.ac.in/" target="_blank" rel="noopener" class="cert-card glass-card rounded-xl p-stack-lg fade-element stagger-card">
+                    <div class="flex items-start justify-between mb-stack-md">
+                        <svg class="icon icon-md text-primary cert-badge" viewBox="0 0 24 24"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/><path d="M9 12l2 2l4-4"/></svg>
+                        <span class="font-label-mono text-outline text-label-mono">Dec 2025</span>
+                    </div>
+                    <h4 class="font-headline-md text-body-base font-bold text-primary">Advanced Certification in ML & Data Science</h4>
+                    <p class="text-on-surface-variant text-sm mt-stack-sm">IIT Madras</p>
+                </a>
+                <a href="https://bswd.iitm.ac.in/" target="_blank" rel="noopener" class="cert-card glass-card rounded-xl p-stack-lg fade-element stagger-card">
+                    <div class="flex items-start justify-between mb-stack-md">
+                        <svg class="icon icon-md text-primary cert-badge" viewBox="0 0 24 24"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/><path d="M9 12l2 2l4-4"/></svg>
+                        <span class="font-label-mono text-outline text-label-mono">Aug 2025</span>
+                    </div>
+                    <h4 class="font-headline-md text-body-base font-bold text-primary">Advanced Certification in Programming & App Development</h4>
+                    <p class="text-on-surface-variant text-sm mt-stack-sm">IIT Madras</p>
+                </a>
+                <a href="https://www.nielit.gov.in/" target="_blank" rel="noopener" class="cert-card glass-card rounded-xl p-stack-lg fade-element stagger-card">
+                    <div class="flex items-start justify-between mb-stack-md">
+                        <svg class="icon icon-md text-primary cert-badge" viewBox="0 0 24 24"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/><path d="M9 12l2 2l4-4"/></svg>
+                        <span class="font-label-mono text-outline text-label-mono">Sep 2024</span>
+                    </div>
+                    <h4 class="font-headline-md text-body-base font-bold text-primary">Android Application Developer</h4>
+                    <p class="text-on-surface-variant text-sm mt-stack-sm">NIELIT</p>
+                </a>
+                <a href="https://www.ibm.com/" target="_blank" rel="noopener" class="cert-card glass-card rounded-xl p-stack-lg fade-element stagger-card">
+                    <div class="flex items-start justify-between mb-stack-md">
+                        <svg class="icon icon-md text-primary cert-badge" viewBox="0 0 24 24"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/><path d="M9 12l2 2l4-4"/></svg>
+                        <span class="font-label-mono text-outline text-label-mono">Aug 2024</span>
+                    </div>
+                    <h4 class="font-headline-md text-body-base font-bold text-primary">Python for Data Science, AI & Development</h4>
+                    <p class="text-on-surface-variant text-sm mt-stack-sm">IBM</p>
+                </a>
+                <a href="https://www.coursera.org/" target="_blank" rel="noopener" class="cert-card glass-card rounded-xl p-stack-lg fade-element stagger-card">
+                    <div class="flex items-start justify-between mb-stack-md">
+                        <svg class="icon icon-md text-primary cert-badge" viewBox="0 0 24 24"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/><path d="M9 12l2 2l4-4"/></svg>
+                        <span class="font-label-mono text-outline text-label-mono">Aug 2024</span>
+                    </div>
+                    <h4 class="font-headline-md text-body-base font-bold text-primary">Crash Course on Python</h4>
+                    <p class="text-on-surface-variant text-sm mt-stack-sm">Google</p>
+                </a>
+                <a href="https://www.iitkgp.ac.in/" target="_blank" rel="noopener" class="cert-card glass-card rounded-xl p-stack-lg fade-element stagger-card">
+                    <div class="flex items-start justify-between mb-stack-md">
+                        <svg class="icon icon-md text-primary cert-badge" viewBox="0 0 24 24"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/><path d="M9 12l2 2l4-4"/></svg>
+                        <span class="font-label-mono text-outline text-label-mono">Jun 2024</span>
+                    </div>
+                    <h4 class="font-headline-md text-body-base font-bold text-primary">Hands-on Intro to IoT, Generative AI & Cloud Computing</h4>
+                    <p class="text-on-surface-variant text-sm mt-stack-sm">IIT Kharagpur</p>
+                </a>
+            </div>
+        </section>
+
+        <!-- Leadership -->
+        <section class="py-section-gap-mobile md:py-section-gap-desktop bg-surface-container-lowest" id="leadership">
+            <div class="px-gutter max-w-container-max mx-auto">
+                <div class="mb-stack-lg fade-element">
+                    <h2 class="font-headline-md text-headline-md text-primary">Leadership</h2>
+                    <div class="h-1 w-20 bg-primary mt-unit"></div>
+                </div>
+                <div class="grid md:grid-cols-2 gap-stack-lg" data-stagger-group>
+                    <div class="glass-card rounded-xl p-stack-lg fade-element stagger-card">
+                        <div class="flex items-start gap-stack-md">
+                            <svg class="icon icon-md text-primary lead-icon mt-1" viewBox="0 0 24 24"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+                            <div>
+                                <h4 class="font-headline-md text-body-base font-bold text-primary">Vice President, Student Placement Cell</h4>
+                                <p class="text-on-surface-variant text-sm mt-stack-sm">Tripura Institute of Technology, Agartala</p>
+                                <p class="font-label-mono text-outline text-label-mono mt-stack-sm">2025 — 2026</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="glass-card rounded-xl p-stack-lg fade-element stagger-card">
+                        <div class="flex items-start gap-stack-md">
+                            <svg class="icon icon-md text-primary lead-icon mt-1" viewBox="0 0 24 24"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+                            <div>
+                                <h4 class="font-headline-md text-body-base font-bold text-primary">Executive Member, FOSS Club</h4>
+                                <p class="text-on-surface-variant text-sm mt-stack-sm">Tripura Institute of Technology, Agartala</p>
+                                <p class="font-label-mono text-outline text-label-mono mt-stack-sm">2025 — 2026</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Contact -->
+        <section class="py-section-gap-mobile md:py-section-gap-desktop px-gutter max-w-container-max mx-auto" id="contact">
+            <div class="mb-stack-lg fade-element">
+                <h2 class="font-headline-md text-headline-md text-primary">Contact</h2>
+                <div class="h-1 w-20 bg-primary mt-unit"></div>
+            </div>
+            <div class="grid sm:grid-cols-2 lg:grid-cols-3 gap-stack-lg" data-stagger-group>
+                <a href="mailto:souravdebnath9838@gmail.com" class="contact-card glass-card rounded-xl fade-element stagger-card">
+                    <svg class="icon icon-md text-primary contact-icon" viewBox="0 0 24 24"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
+                    <div>
+                        <p class="font-label-mono text-outline text-label-mono">EMAIL</p>
+                        <p class="text-on-surface text-sm mt-unit break-all">souravdebnath9838@gmail.com</p>
+                    </div>
+                </a>
+                <div class="contact-card glass-card rounded-xl fade-element stagger-card">
+                    <svg class="icon icon-md text-primary contact-icon" viewBox="0 0 24 24"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
+                    <div>
+                        <p class="font-label-mono text-outline text-label-mono">LOCATION</p>
+                        <p class="text-on-surface text-sm mt-unit">Agartala, Tripura, India</p>
+                    </div>
+                </div>
+                <a href="https://github.com/souravdebnath00070007" target="_blank" rel="noopener" class="contact-card glass-card rounded-xl fade-element stagger-card">
+                    <svg class="icon icon-md text-primary contact-icon" viewBox="0 0 24 24"><path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"/></svg>
+                    <div>
+                        <p class="font-label-mono text-outline text-label-mono">GITHUB</p>
+                        <p class="text-on-surface text-sm mt-unit">/souravdebnath</p>
+                    </div>
+                </a>
+                <a href="https://linkedin.com/in/souravdebnath" target="_blank" rel="noopener" class="contact-card glass-card rounded-xl fade-element stagger-card">
+                    <svg class="icon icon-md text-primary contact-icon" viewBox="0 0 24 24"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-4 0v7h-4v-7a6 6 0 0 1 6-6z"/><rect x="2" y="9" width="4" height="12"/><circle cx="4" cy="4" r="2"/></svg>
+                    <div>
+                        <p class="font-label-mono text-outline text-label-mono">LINKEDIN</p>
+                        <p class="text-on-surface text-sm mt-unit">/in/souravdebnath</p>
+                    </div>
+                </a>
+                <a href="https://leetcode.com/souravdebnath" target="_blank" rel="noopener" class="contact-card glass-card rounded-xl fade-element stagger-card">
+                    <svg class="icon icon-md text-primary contact-icon" viewBox="0 0 24 24"><path d="M16 10l4 4-4 4"/><path d="M20 14H8"/><path d="M4 4v6a4 4 0 0 0 4 4h12"/></svg>
+                    <div>
+                        <p class="font-label-mono text-outline text-label-mono">LEETCODE</p>
+                        <p class="text-on-surface text-sm mt-unit">/souravdebnath</p>
+                    </div>
+                </a>
+                <a href="{{ url_for('static', filename='docs/resume.pdf') }}" download="Sourav_Debnath_Resume.pdf" class="contact-card glass-card rounded-xl fade-element stagger-card sm:col-span-2 lg:col-span-3">
+                    <svg class="icon icon-md text-primary contact-icon" viewBox="0 0 24 24"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="12" y1="18" x2="12" y2="12"/><polyline points="9 15 12 18 15 15"/></svg>
+                    <div>
+                        <p class="font-label-mono text-outline text-label-mono">RESUME</p>
+                        <p class="text-on-surface text-sm mt-unit">Download Sourav Debnath — Resume (PDF)</p>
+                    </div>
+                </a>
+            </div>
+        </section>
+    </main>
+
+    <!-- Footer -->
+    <footer class="w-full bg-surface-dim border-t border-outline-variant/20 opacity-0 transition-opacity duration-1000"
+        id="main-footer">
+        <div
+            class="flex flex-col md:flex-row justify-between items-center py-stack-lg px-gutter max-w-container-max mx-auto gap-stack-md">
+            <div class="flex flex-col items-center md:items-start">
+                <div class="font-display-lg text-body-base font-bold text-on-surface">Sourav Debnath</div>
+                <p class="text-outline text-label-mono font-label-mono text-[10px] mt-unit tracking-widest">sourav.dev</p>
+            </div>
+            <div class="flex gap-stack-lg font-label-mono text-label-mono text-outline">
+                <a class="hover:text-on-surface transition-colors hover:underline decoration-primary-fixed-dim"
+                    href="https://github.com/souravdebnath0007" target="_blank" rel="noopener">GitHub</a>
+                <a class="hover:text-on-surface transition-colors hover:underline decoration-primary-fixed-dim"
+                    href="https://linkedin.com/in/souravdebnath" target="_blank" rel="noopener">LinkedIn</a>
+                <a class="hover:text-on-surface transition-colors hover:underline decoration-primary-fixed-dim"
+                    href="https://leetcode.com/souravdebnath" target="_blank" rel="noopener">LeetCode</a>
+            </div>
+            <div class="flex flex-col items-center md:items-end gap-stack-sm">
+                <p class="font-label-mono text-label-mono text-outline opacity-80 uppercase">© 2025 SOURAV DEBNATH. ALL RIGHTS RESERVED.</p>
+                <button class="text-primary opacity-60 hover:opacity-100 transition-opacity"
+                    id="back-to-top" aria-label="Back to top">
+                    <svg class="icon" viewBox="0 0 24 24"><line x1="12" y1="19" x2="12" y2="5"/><polyline points="5 12 12 5 19 12"/></svg>
+                </button>
+            </div>
+        </div>
+    </footer>
+
+    <script src="{{ url_for('static', filename='js/main.js') }}"></script>
+</body>
+
+</html>
